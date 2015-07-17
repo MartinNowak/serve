@@ -1,4 +1,4 @@
-# serve [![Dub](https://img.shields.io/badge/dub-code.dlang.org-FF4081.svg)](http://code.dlang.org/packages/serve) ![Uses vibe.d](https://img.shields.io/badge/uses-vibe.d-brightgreen.svg)
+# serve [![Dub](https://img.shields.io/dub/v/serve.svg)](http://code.dlang.org/packages/serve) ![Uses vibe.d](https://img.shields.io/badge/uses-vibe.d-brightgreen.svg)
 A simple HTTP server for static files.
 
 ### Installation
