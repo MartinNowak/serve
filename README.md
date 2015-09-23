@@ -54,5 +54,5 @@ sudo mv ~/.dub/packages/serve-1.0.0/serve /usr/local/bin/
 - run `-h|--help` to see all options
 
     ```sh
-    serve -- -h
+    serve -h
     ```
