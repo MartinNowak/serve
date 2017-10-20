@@ -39,7 +39,7 @@ sudo mv ~/.dub/packages/serve-1.0.0/serve /usr/local/bin/
     serve path/to/folder
     ```
 
-- use a different port that 8080 (`-p|--port`)
+- use a different port than 8080 (`-p|--port`)
 
     ```sh
     serve -p 1234
