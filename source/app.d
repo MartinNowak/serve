@@ -1,4 +1,5 @@
-import vibe.vibe, std.file, std.getopt, std.path, std.process, std.stdio;
+import vibe.core.core, vibe.core.args, vibe.http.fileserver, vibe.http.server, vibe.inet.url;
+import std.file, std.getopt, std.path, std.process, std.stdio, std.string;
 
 int main()
 {
