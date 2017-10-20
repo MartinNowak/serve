@@ -6,7 +6,6 @@
 		"diet-ng": "1.4.3",
 		"eventcore": "0.8.20",
 		"libasync": "0.8.3",
-		"libev": "5.0.0+4.04",
 		"libevent": "2.0.2+2.0.16",
 		"memutils": "0.4.9",
 		"openssl": "1.1.5+1.0.1g",

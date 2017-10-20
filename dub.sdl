@@ -4,17 +4,6 @@ description "A simple HTTP server for static files."
 authors "Martin Nowak"
 copyright "Copyright © 2015-, Martin Nowak"
 license "MIT"
-dependency "vibe-d" version="~>0.8.1"
+dependency "vibe-d:http" version="~>0.8.1"
 sourcePaths "source/"
-versions "VibeCustomMain"
-dependency "vibe-d:tls" version="*"
-subConfiguration "vibe-d:tls" "botan"
-importPaths "source/"
-configuration "application" {
-	targetType "executable"
-	mainSourceFile "source/app.d"
-}
-configuration "library" {
-	targetType "library"
-	excludedSourceFiles "source/app.d"
-}
+versions "VibeCustomMain" "VibeNoSSL"
