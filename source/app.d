@@ -1,4 +1,5 @@
 import vibe.core.core, vibe.core.args, vibe.http.fileserver, vibe.http.server, vibe.inet.url;
+import vibe.stream.tls : createTLSContext, TLSContextKind;
 import std.file, std.getopt, std.path, std.process, std.stdio, std.string;
 
 int main()
@@ -10,6 +11,17 @@ int main()
     readOption("bind|b", &settings.bindAddresses[0],
         "Sets the address used for serving. (default 127.0.0.1)");
     readOption("port|p", &settings.port, "Sets the port used for serving. (default 8080)");
+    version (VibeNoSSL) {}
+    else
+    {
+        string pem;
+        if (readOption("https-crt", &pem, "Serve over http using the given combined PEM TLS certificate/key file."))
+        {
+            settings.tlsContext = createTLSContext(TLSContextKind.server);
+            settings.tlsContext.useCertificateChainFile(pem);
+            settings.tlsContext.usePrivateKeyFile(pem);
+        }
+    }
 
     // returns false if a help screen has been requested and displayed (--help)
     string[] args;

@@ -5,4 +5,10 @@ copyright "Copyright © 2015-, Martin Nowak"
 license "MIT"
 dependency "vibe-d:http" version="~>0.8.1"
 sourcePaths "source/"
-versions "VibeCustomMain" "VibeNoSSL"
+versions "VibeCustomMain"
+targetType "executable"
+configuration "app" {
+    versions "VibeNoSSL"
+}
+configuration "https" {
+}
