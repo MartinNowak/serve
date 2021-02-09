@@ -1,4 +1,6 @@
-import vibe.core.core, vibe.core.args, vibe.http.fileserver, vibe.http.server, vibe.inet.url;
+import vibe.core.core : lowerPrivileges, runEventLoop;
+import vibe.http.fileserver : serveStaticFiles;
+import vibe.core.args, vibe.http.server, vibe.inet.url;
 import vibe.stream.tls : createTLSContext, TLSContextKind;
 import std.file, std.getopt, std.path, std.process, std.stdio, std.string;
 
@@ -15,7 +17,7 @@ int main()
     else
     {
         string pem;
-        if (readOption("https-crt", &pem, "Serve over http using the given combined PEM TLS certificate/key file."))
+        if (readOption("https-crt", &pem, "Serve over https using the given combined PEM TLS certificate/key file."))
         {
             settings.tlsContext = createTLSContext(TLSContextKind.server);
             settings.tlsContext.useCertificateChainFile(pem);
@@ -30,27 +32,18 @@ int main()
 
     auto path = args.length > 1 ? args[1] : ".";
 
-    if (path.isDir)
-    {
-        writefln("serving '%s'", path);
-        listenHTTP(settings, serveStaticFiles(path));
-    }
-    else
-    {
-        path = path.absolutePath.buildNormalizedPath;
-        auto folder = path.dirName;
-        writefln("serving '%s'", folder.relativePath);
-        listenHTTP(settings, serveStaticFiles(folder));
+    path = path.absolutePath.buildNormalizedPath;
+    auto folder = path.isDir ? path : path.dirName;
+    writefln("serving '%s'", folder.relativePath);
+    auto l = listenHTTP(settings, serveStaticFiles(folder));
 
-        if (path.extension == ".html")
-        {
-            auto url = URL("http", settings.bindAddresses[0], settings.port,
-                NativePath(path.chompPrefix(folder)));
-            writefln("opening %s in a browser", url);
-            browse(url.toString());
-        }
+    if (!path.isDir && path.extension == ".html")
+    {
+        auto url = URL("http", settings.bindAddresses[0], settings.port, NativePath("/" ~ path.baseName));
+        writefln("opening %s in a browser", url);
+        browse(url.toString());
     }
 
-    lowerPrivileges();
+	lowerPrivileges();
     return runEventLoop();
 }
