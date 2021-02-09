@@ -45,7 +45,7 @@ int main()
         if (path.extension == ".html")
         {
             auto url = URL("http", settings.bindAddresses[0], settings.port,
-                Path(path.chompPrefix(folder)));
+                NativePath(path.chompPrefix(folder)));
             writefln("opening %s in a browser", url);
             browse(url.toString());
         }
